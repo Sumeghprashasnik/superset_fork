@@ -967,6 +967,27 @@ THEME_DEFAULT: Theme = {
         "fontWeightBold": "700",
         # Editor selection color (for SQL Lab text highlighting)
         "colorEditorSelection": "#fff5cf",
+        # Secondary button tokens (black)
+        "buttonSecondaryColor": "#000000",
+        "buttonSecondaryBg": "#f0f0f0",
+        "buttonSecondaryHoverColor": "#000000",
+        "buttonSecondaryHoverBg": "#e0e0e0",
+        "buttonSecondaryActiveColor": "#000000",
+        "buttonSecondaryActiveBg": "#d9d9d9",
+    },
+    "components": {
+        "Button": {
+            "colorPrimary": "#000000",
+            "colorPrimaryHover": "#262626",
+            "colorPrimaryActive": "#000000",
+            "defaultColor": "#000000",
+            "defaultBorderColor": "#000000",
+            "defaultHoverColor": "#262626",
+            "defaultHoverBorderColor": "#262626",
+            "colorLink": "#000000",
+            "colorLinkHover": "#262626",
+            "colorLinkActive": "#000000",
+        },
     },
     "algorithm": "default",
 }
@@ -980,6 +1001,28 @@ THEME_DARK: Optional[Theme] = {
         **THEME_DEFAULT["token"],
         # Darker selection color for dark mode
         "colorEditorSelection": "#5c4d1a",
+        # Secondary button tokens adjusted for dark mode
+        "buttonSecondaryColor": "#ffffff",
+        "buttonSecondaryBg": "#333333",
+        "buttonSecondaryHoverColor": "#ffffff",
+        "buttonSecondaryHoverBg": "#444444",
+        "buttonSecondaryActiveColor": "#ffffff",
+        "buttonSecondaryActiveBg": "#555555",
+    },
+    "components": {
+        "Button": {
+            "colorPrimary": "#ffffff",
+            "colorPrimaryHover": "#d9d9d9",
+            "colorPrimaryActive": "#ffffff",
+            "primaryColor": "#000000",
+            "defaultColor": "#ffffff",
+            "defaultBorderColor": "#ffffff",
+            "defaultHoverColor": "#d9d9d9",
+            "defaultHoverBorderColor": "#d9d9d9",
+            "colorLink": "#ffffff",
+            "colorLinkHover": "#d9d9d9",
+            "colorLinkActive": "#ffffff",
+        },
     },
     "algorithm": "dark",
 }

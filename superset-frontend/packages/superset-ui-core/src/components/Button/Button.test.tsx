@@ -203,6 +203,41 @@ test('getSecondaryButtonStyle falls back when tokens are empty strings', () => {
   expect(styles.borderColor).toBe('transparent');
 });
 
+test('getSecondaryButtonStyle applies black theme tokens', () => {
+  const mockTheme = {
+    colorPrimary: '#2893B3',
+    colorPrimaryBg: '#e6f4f7',
+    buttonSecondaryColor: '#000000',
+    buttonSecondaryBg: '#f0f0f0',
+    buttonSecondaryBorderColor: '',
+  } as SupersetTheme;
+
+  const styles = getSecondaryButtonStyle(mockTheme);
+
+  expect(styles.color).toBe('#000000');
+  expect(styles.backgroundColor).toBe('#f0f0f0');
+  expect(styles.borderColor).toBe('transparent');
+});
+
+test('getSecondaryButtonHoverStyles applies black theme tokens', () => {
+  const mockTheme = {
+    colorPrimary: '#2893B3',
+    colorPrimaryBgHover: '#cce9ef',
+    colorPrimaryBorder: '#99d3df',
+    buttonSecondaryHoverColor: '#000000',
+    buttonSecondaryHoverBg: '#e0e0e0',
+    buttonSecondaryActiveColor: '#000000',
+    buttonSecondaryActiveBg: '#d9d9d9',
+  } as SupersetTheme;
+
+  const hoverStyles = getSecondaryButtonHoverStyles(mockTheme);
+
+  expect(hoverStyles['&:hover'].color).toBe('#000000 !important');
+  expect(hoverStyles['&:hover'].backgroundColor).toBe('#e0e0e0 !important');
+  expect(hoverStyles['&:active'].color).toBe('#000000 !important');
+  expect(hoverStyles['&:active'].backgroundColor).toBe('#d9d9d9 !important');
+});
+
 test('secondary button merges consumer style with theme styles', () => {
   const { getByRole } = render(
     <Button buttonStyle="secondary" style={{ marginTop: 10, padding: 20 }}>
