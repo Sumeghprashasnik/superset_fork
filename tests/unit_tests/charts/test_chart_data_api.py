@@ -100,3 +100,17 @@ def test_extract_export_filename_preserves_normal_name() -> None:
 def test_extract_export_filename_all_special_falls_back_to_none() -> None:
     """A name with no usable characters becomes None (generated downstream)."""
     assert _extract_filename("***") is None
+
+
+def test_chart_api_does_not_override_pagination() -> None:
+    """Regression: ChartRestApi must not override get_list_headless.
+
+    A previous bug introduced a ListPage(int) subclass whose __mul__
+    computed ``page * (page_size - 1)`` instead of ``page * page_size``,
+    causing the last row of each page to reappear as the first row of
+    the next page.  Verify neither method is re-introduced.
+    """
+    from superset.charts.api import ChartRestApi
+
+    assert "get_list_headless" not in ChartRestApi.__dict__
+    assert "pre_get_list" not in ChartRestApi.__dict__
