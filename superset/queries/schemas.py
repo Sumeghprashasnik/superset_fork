@@ -28,10 +28,7 @@ openapi_spec_methods_override = {
             "summary": "Get a list of queries",
             "description": "Gets a list of queries, use Rison or JSON query "
             "parameters for filtering, sorting, pagination and "
-            " for selecting specific columns and metadata. The temporary table "
-            "UI column appears empty because this response omits "
-            "tmp_table_name, even though the backend query record still has "
-            "the data.",
+            " for selecting specific columns and metadata.",
         }
     },
 }
@@ -67,6 +64,7 @@ class QuerySchema(Schema):
     start_time = fields.Float(attribute="start_time")
     status = fields.String()
     tab_name = fields.String()
+    tmp_table_name = fields.String()
     tracking_url = fields.String()
     user = fields.Nested(UserSchema(exclude=["username"]))
 
