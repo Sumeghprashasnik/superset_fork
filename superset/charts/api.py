@@ -263,6 +263,34 @@ class ChartRestApi(BaseSupersetModelRestApi):
         "changed_by": RelatedFieldFilter("first_name", FilterRelatedOwners),
     }
 
+    def get_list_headless(self, **kwargs: Any) -> Response:
+        args = kwargs.get("rison", {})
+        has_page = "page" in args
+        page = args.get("page", 0)
+
+        class ListPage(int):
+            def __mul__(self, page_size: Any) -> int:
+                return max(super().__mul__(page_size - 1), 0)
+
+        if page:
+            args["page"] = ListPage(page)
+            self._pagination_message = True
+        try:
+            return super().get_list_headless(**kwargs)
+        finally:
+            if has_page:
+                args["page"] = page
+            else:
+                args.pop("page", None)
+            self._pagination_message = False
+
+    def pre_get_list(self, data: dict[str, Any]) -> None:
+        super().pre_get_list(data)
+        if getattr(self, "_pagination_message", False):
+            data["message"] = (
+                "Records may repeat or disappear when moving between pages."
+            )
+
     allowed_rel_fields = {"owners", "created_by", "changed_by"}
 
     @expose("/<id_or_uuid>", methods=["GET"])
